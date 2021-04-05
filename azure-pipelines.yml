@@ -11,10 +11,21 @@ stages:
   jobs:
    - job: MaevenSetUp
      steps:
-       - task: Maven@3
-         inputs:
-           mavenPomFile: 'pom.xml'
-           javaHomeOption: 'JDKVersion'
-           jdkVersionOption: 'default'
-           options: compile exec:java -Dexec.mainClass="HelloWorld"
-           publishJUnitResults: false
+       #- task: Maven@3
+       #  inputs:
+       #    mavenPomFile: 'pom.xml'
+       #    javaHomeOption: 'JDKVersion'
+       #    jdkVersionOption: 'default'
+       #    options: compile exec:java -Dexec.mainClass="HelloWorld"
+       #    publishJUnitResults: false
+        
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            javaHomeOption: 'JDKVersion'
+            mavenVersionOption: 'Default'
+            mavenAuthenticateFeed: false
+            effectivePomSkip: false
+            sonarQubeRunAnalysis: false
